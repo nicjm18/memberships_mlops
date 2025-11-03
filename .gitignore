@@ -1,1 +1,153 @@
+# ======================================
+# 🔐 SENSIBLE / CREDENCIALES
+# ======================================
 config/credentials.json
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.crt
+*.csr
+*.token
+*.secrets.json
+*.service-account.json
+
+# ======================================
+# 🧱 PYTHON / POETRY
+# ======================================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.log
+*.bak
+*.tmp
+*.swp
+*.swo
+
+# Byte-compiled / compiled files
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+poetry.lock
+
+# ======================================
+# ⚗️ NOTEBOOKS / EXPERIMENTOS
+# ======================================
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+*.ipynb_convert/
+output/
+experiments/
+
+# ======================================
+# 🧪 TESTS / COVERAGE
+# ======================================
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+.tox/
+.nox/
+.mypy_cache/
+.cache/
+junit.xml
+
+# ======================================
+# 💾 DATOS Y RESULTADOS
+# ======================================
+data/raw/
+data/processed/
+data/external/
+data/tmp/
+artifacts/
+reports/
+results/
+logs/
+mlruns/
+models/
+checkpoints/
+*.csv
+*.parquet
+*.pkl
+*.joblib
+*.h5
+*.jsonl
+
+# ======================================
+# 🐳 DOCKER / CI-CD
+# ======================================
+Dockerfile
+docker-compose.yml
+.dockerignore
+*.tar
+*.img
+*.pid
+
+# Jenkins
+jenkins/workspace/
+jenkins/reports/
+jenkins/*.log
+*.jenkinsfile.local
+
+# ======================================
+# 🧰 IDE / SISTEMA
+# ======================================
+.vscode/
+.idea/
+*.code-workspace
+*.sublime-project
+*.sublime-workspace
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*.out
+*.o
+*.so
+
+# ======================================
+# 📦 DEPLOYMENT / BUILD
+# ======================================
+build/
+dist/
+*.egg-info/
+.eggs/
+MANIFEST
+*.spec
+
+# ======================================
+# 🧠 DOCUMENTACIÓN Y TEMPORALES
+# ======================================
+docs/_build/
+*.tmp
+*.temp
+*.bak
+*.old
+*.zip
+*.gz
+*.tar.gz
+
+# ======================================
+# 💬 LOCAL DEV
+# ======================================
+test.py
+debug.log
