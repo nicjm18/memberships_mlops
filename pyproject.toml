@@ -47,6 +47,10 @@ exclude = ["venv", "__pycache__"]
 minversion = "6.0"
 addopts = "-ra -q"
 testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.poetry]
+packages = [{ include = "src" }]
 
 [tool.isort]
 profile = "black"

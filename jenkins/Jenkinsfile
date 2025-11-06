@@ -1,0 +1,99 @@
+pipeline {
+    agent any
+
+    environment {
+        PYTHON_VERSION = "3.10"
+        VENV_DIR = ".venv"
+        PYTHONPATH = "src"
+        REPORTS_DIR = "jenkins/reports"
+    }
+
+    options {
+        ansiColor('xterm')
+        timestamps()
+    }
+
+    stages {
+
+        stage('1 Checkout') {
+            steps {
+                echo "Clonando el repositorio..."
+                checkout scm
+            }
+        }
+
+        stage('2 Configurar entorno') {
+            steps {
+                echo "Configurando entorno con Poetry..."
+                sh '''
+                python -m venv ${VENV_DIR}
+                . ${VENV_DIR}/Scripts/activate
+                pip install poetry
+                poetry install
+                '''
+            }
+        }
+
+        stage('3 Validación de calidad') {
+            steps {
+                echo "Ejecutando validaciones de código..."
+                sh '''
+                . ${VENV_DIR}/Scripts/activate
+                poetry run python validate.py
+                '''
+            }
+        }
+
+        stage('4 Pruebas unitarias') {
+            steps {
+                echo "Ejecutando pruebas unitarias..."
+                sh '''
+                . ${VENV_DIR}/Scripts/activate
+                mkdir -p ${REPORTS_DIR}
+                poetry run pytest tests/ -v --disable-warnings --maxfail=1 --junitxml=${REPORTS_DIR}/pytest_report.xml
+                '''
+            }
+        }
+
+        stage('5 Ejecución del pipeline') {
+            steps {
+                echo "Ejecutando pipeline de entrenamiento..."
+                sh '''
+                . ${VENV_DIR}/Scripts/activate
+                poetry run python -m src.pipelines.pipeline_train
+                '''
+            }
+        }
+
+        stage('6 Evaluación y despliegue') {
+            steps {
+                echo "Registrando el mejor modelo y validando consistencia..."
+                sh '''
+                . ${VENV_DIR}/Scripts/activate
+                poetry run python -m src.models.model_registry
+                '''
+            }
+        }
+
+    }
+
+    post {
+        success {
+            echo "✅ Pipeline ejecutado exitosamente."
+            mail to: 'nicolasjm05@gmail.com',
+                 subject: "✅ Éxito: Pipeline MLOps completado (${env.BUILD_TAG})",
+                 body: """El pipeline se ejecutó correctamente.
+                 \nExperimento: membresias_premium_models
+                 \nLogs: ${env.BUILD_URL}
+                 """
+        }
+        failure {
+            echo "❌ Falló el pipeline."
+            mail to: 'equipo.mlops@empresa.com',
+                 subject: "❌ Error: Falló el pipeline (${env.BUILD_TAG})",
+                 body: """El pipeline falló en la etapa: ${env.STAGE_NAME}.
+                 \nRevisa los logs: ${env.BUILD_URL}
+                 """
+        }
+    }
+}
