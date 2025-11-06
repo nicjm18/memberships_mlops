@@ -8,7 +8,7 @@ pipeline {
         REPORTS_DIR = "jenkins/reports"
     }
 
-    options { timestamps(); ansiColor('xterm') }
+
 
     stages {
 
