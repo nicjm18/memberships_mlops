@@ -80,6 +80,7 @@ checkpoints/
 *.joblib
 *.h5
 *.jsonl
+*.log
 
 # ======================================
 # 🐳 DOCKER / CI-CD
@@ -96,6 +97,8 @@ jenkins/workspace/
 jenkins/reports/
 jenkins/*.log
 *.jenkinsfile.local
+jenkins_home/
+jenkins_home/**
 
 # ======================================
 # 🧰 IDE / SISTEMA
@@ -118,6 +121,7 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
+.DS_Store
 
 # Linux
 *.out
