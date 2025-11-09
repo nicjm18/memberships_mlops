@@ -86,7 +86,7 @@ pipeline {
         }
         failure {
             echo "❌ Falló el pipeline."
-            mail to: 'equipo.mlops@empresa.com',
+            mail to: 'nicolasjm05@gmail.com',
                  subject: "❌ Error: Falló el pipeline (${env.BUILD_TAG})",
                  body: """El pipeline falló en la etapa: ${env.STAGE_NAME}.
                  \nRevisa los logs: ${env.BUILD_URL}
